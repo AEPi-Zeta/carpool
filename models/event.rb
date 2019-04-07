@@ -22,21 +22,21 @@ class Event < ActiveRecord::Base
       rider = Rider.find_by(rider_id: car.rider_id)
       assigned_set << rider.rider_id
       if assignments[car.driver_id] != nil
-        assignments[car.driver_id] << rider.name
+        assignments[car.driver_id] << "#{rider.name} (#{rider.group_size})"
       else
-        assignments[car.driver_id] = [rider.name]
+        assignments[car.driver_id] = ["#{rider.name} (#{rider.group_size})"]
       end
       car_size -= rider.group_size
       size_so_far += rider.group_size
 
       all_riders.each do |rider|
         break if car_size <= 0
-        break if rider.leaving > car.leaving
+        next if rider.leaving > car.leaving
         next if assigned_set.include?(rider.rider_id)
         next if rider.group_size > car_size
 
         assigned_set << rider.id
-        assignments[car.driver_id] << rider.name
+        assignments[car.driver_id] << "#{rider.name} (#{rider.group_size})"
         car_size -= rider.group_size
         size_so_far += rider.group_size
       end
