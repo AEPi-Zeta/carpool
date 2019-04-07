@@ -1,0 +1,15 @@
+.section
+  h2.subtitle Events
+  table
+  - events.each do |event|
+    .box
+      label.label = event.name
+      .field.has-addons
+        .control
+          a.button href="/event/#{event.event_id}" Registered Drivers/Riders
+        .control
+          a.button href="/event/#{event.event_id}/drive" Add a Driver
+        .control
+          a.button href="/event/#{event.event_id}/ride" Add Riders
+        .control
+          a.button href="/event/#{event.event_id}/carpool" Assign Cars

@@ -1,0 +1,24 @@
+.box
+  label.label = event.name
+
+  form.form action="/event/#{event.event_id}/drive" method="POST"
+    input type="hidden" name="id" value="#{event.event_id}"
+
+    .field
+      label.label Driver's Name
+      input.input type="text" name="driver_name" placeholder="Driver's name"
+
+    .field
+      label.label Number of Seats
+      input.input type="text" name="num_seats" placeholder="Number of seats"
+
+    .field
+      label.label Number of Riders (including you)
+      input.input type="text" name="group_size" placeholder="Number of riders (including you)"
+
+    .field
+      label.label Time Leaving
+      input.input type="text" name="leaving" placeholder="Time leaving"
+
+    .field
+      input.button.is-link type="submit" value="Add me as a driver!"

@@ -1,0 +1,12 @@
+.box
+  h2.label = event.name
+
+  table.table.is-hoverable.is-fullwidth
+    thead
+      td Rider
+      td Driver
+    tbody
+      - cars.each do |driver, rider|
+        tr
+          td = driver
+          td = rider
