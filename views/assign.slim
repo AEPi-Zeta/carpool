@@ -5,8 +5,10 @@
     thead
       td Rider
       td Driver
+      td Leaving At
     tbody
-      - cars.each do |driver, rider|
+      - cars.each do |rider, driver_info|
         tr
-          td = driver
           td = rider
+          td = driver_info[0]
+          td = driver_info[1]

@@ -4,9 +4,9 @@ class Event < ActiveRecord::Base
 
   def assign
     total_riders = Rider.where(event_id: self.event_id).pluck(:group_size).reduce(:+)
-    biggest_cars = Driver.where(event_id: self.event_id).order(:seats)
+    biggest_cars = Driver.where(event_id: self.event_id).order(:seats, :leaving)
 
-    all_riders = Rider.where(event_id: self.event_id).order(:group_size)
+    all_riders = Rider.where(event_id: self.event_id).order(:group_size, :leaving)
 
     # Greedy take riders till everyone is riding
     size_so_far = 0
@@ -20,6 +20,8 @@ class Event < ActiveRecord::Base
       car_size = car.seats
 
       rider = Rider.find_by(rider_id: car.rider_id)
+      next if assigned_set.include?(rider.rider_id)
+
       assigned_set << rider.rider_id
       if assignments[car.driver_id] != nil
         assignments[car.driver_id] << "#{rider.name} (#{rider.group_size})"
@@ -48,7 +50,8 @@ class Event < ActiveRecord::Base
 
     assignments.each do |driver, riders|
       riders.each do |rider|
-        reverse_assignments[rider] = Driver.find_by(driver_id: driver).name
+        driver = Driver.find_by(driver_id: driver)
+        reverse_assignments[rider] = [driver.name, driver.leaving]
       end
     end
 
