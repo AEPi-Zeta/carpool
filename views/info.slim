@@ -1,31 +1,32 @@
-.box
-  h2.label "#{event.name} Registered Drivers"
+.section
+  .box
+    h2.label #{event.name} Registered Drivers
 
-  table.table.is-hoverable.is-fullwidth
-    thead
-      td Name
-      td Seats
-      td Group Size
-      td Leaving At
-    tbody
-      - drivers.each do |driver|
-        tr
-          td = driver.name
-          td = driver.seats
-          td = Rider.find_by(rider_id: driver.rider_id).group_size
-          td = driver.leaving
+    table.table.is-hoverable.is-fullwidth
+      thead
+        td Name
+        td Seats
+        td Group Size
+        td Leaving At
+      tbody
+        - drivers.each do |driver|
+          tr
+            td = driver.name
+            td = driver.seats
+            td = Rider.find_by(rider_id: driver.rider_id).group_size
+            td = driver.leaving
 
-.box
-  h2.label "#{event.name} Riders"
+  .box
+    h2.label #{event.name} Riders
 
-  table.table.is-hoverable.is-fullwidth
-    thead
-      td Name
-      td Group Size
-      td Leaving At
-    tbody
-      - riders.each do |rider|
-        tr
-          td = rider.name
-          td = rider.group_size
-          td = rider.leaving
+    table.table.is-hoverable.is-fullwidth
+      thead
+        td Name
+        td Group Size
+        td Leaving At
+      tbody
+        - riders.each do |rider|
+          tr
+            td = rider.name
+            td = rider.group_size
+            td = rider.leaving
